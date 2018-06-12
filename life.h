@@ -2,11 +2,11 @@
 #define LIFE_H
 
 //DEFAULT VALUES
-//#define HEIGHT 23
-//#define WIDTH 80
+#define HEIGHT 23
+#define WIDTH 80
 
-#define HEIGHT 50
-#define WIDTH 100
+//#define HEIGHT 50
+//#define WIDTH 100
 
 struct Grid{
 	int cells[HEIGHT][WIDTH];

@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
 	life.trans_grid = life.grid;
 
 	printf("Welcome to Y.A.L.P - Yet Another Life Program.\n");
-	printf("Please feel free to change the source code as you please - it should have been distributed with this program.\n");
 	printf("For more information, have a look at the README.txt file that came with this executable.\n");
 	printf("Press CTRL+C when you want to quit the program.\n");
 	printf("PRESS ENTER TO CONTINUE\n");
