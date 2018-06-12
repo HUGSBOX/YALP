@@ -2,11 +2,11 @@
 #define LIFE_H
 
 //DEFAULT VALUES
-#define HEIGHT 23
-#define WIDTH 80
+//#define HEIGHT 23
+//#define WIDTH 80
 
-//#define HEIGHT 40
-//#define WIDTH 100
+#define HEIGHT 50
+#define WIDTH 100
 
 struct Grid{
 	int cells[HEIGHT][WIDTH];
@@ -17,6 +17,8 @@ struct Life{
 	struct Grid trans_grid;
 	int generation;
 	int population;
+	int min;
+	int max;
 };
 
 struct Grid make_glider(struct Grid grid);
@@ -35,7 +37,7 @@ struct Life new_life(struct Life life);
 
 int count_neighbors(struct Grid grid, int y_pos, int x_pos);
 
-int count_population(struct Life life);
+int count_population(struct Life *life);
 
 struct Life next_generation(struct Life life);
 

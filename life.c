@@ -15,34 +15,34 @@ struct Grid make_glider(struct Grid grid)
 
 struct Grid make_r_pentomino(struct Grid grid)
 {
-	grid.cells[10][40] = 1;
-	grid.cells[9][40] = 1;
-	grid.cells[8][40] = 1;
-	grid.cells[9][39] = 1;
-	grid.cells[8][41] = 1;
+	grid.cells[HEIGHT/2][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)-1][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)-2][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)-1][(WIDTH/2)-1] = 1;
+	grid.cells[(HEIGHT/2)-2][(WIDTH/2)+1] = 1;
 	return grid;
 }
 
 struct Grid make_thunderbird(struct Grid grid)
 {
-	grid.cells[10][40] = 1;
-	grid.cells[11][40] = 1;
-	grid.cells[12][40] = 1;
-	grid.cells[8][40] = 1;
-	grid.cells[8][41] = 1;
-	grid.cells[8][39] = 1;
+	grid.cells[HEIGHT/2][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)+1][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)+2][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)-2][WIDTH/2] = 1;
+	grid.cells[(HEIGHT/2)-2][(WIDTH/2)+1] = 1;
+	grid.cells[(HEIGHT/2)-2][(WIDTH/2)-1] = 1;
 	return grid;
 }
 
 struct Grid make_herschel(struct Grid grid)
 {
-	grid.cells[10][40] = 1;
-	grid.cells[10][41] = 1;
-	grid.cells[10][39] = 1;
-	grid.cells[11][39] = 1;
-	grid.cells[9][39] = 1;
-	grid.cells[11][41] = 1;
-	grid.cells[12][41] = 1;
+	grid.cells[HEIGHT/2][WIDTH/2] = 1;
+	grid.cells[HEIGHT/2][(WIDTH/2)+1] = 1;
+	grid.cells[HEIGHT/2][(WIDTH/2)-1] = 1;
+	grid.cells[(HEIGHT/2)+1][(WIDTH/2)-1] = 1;
+	grid.cells[(HEIGHT/2)-1][(WIDTH/2)-1] = 1;
+	grid.cells[(HEIGHT/2)+1][(WIDTH/2)+1] = 1;
+	grid.cells[(HEIGHT/2)+2][(WIDTH/2)+1] = 1;
 	return grid;
 }
 
@@ -64,8 +64,8 @@ void print_grid(struct Life life)
 		}
 		printf("\n");
 	}
-	life.population = count_population(life);
-	printf("Generation: %d    Population: %d",life.generation,life.population);
+	life.population = count_population(&life);
+	printf("Generation: %d  Population: %d",life.generation,life.population);
 	sleep(1);
 	printf("\n\n");
 	return;
@@ -76,6 +76,8 @@ struct Life new_life(struct Life life)
 	life.grid = empty_grid(life.grid);
 	life.trans_grid = empty_grid(life.trans_grid);
 	life.generation = 0;
+	life.min = 0;
+	life.max = 0;
 	return life;
 }
 
@@ -109,15 +111,25 @@ int count_neighbors(struct Grid grid, int y, int x)
 	return neighbors;
 }
 
-int count_population(struct Life life)
+int count_population(struct Life *life)
 {
 	int population = 0;
 	for(int i = 0; i < HEIGHT; i++){
 		for(int n = 0; n < WIDTH; n++){
-			if(life.grid.cells[i][n] == 1){
+			if(life->grid.cells[i][n] == 1){
 				population++;
 			}
 		}
+	}
+	if(life->generation == 0){
+		life->min = population;
+		life->max = population;
+	}
+	else if(population < life->min){
+		life->min = population;
+	}
+	else if(population > life->max){
+		life->max = population;
 	}
 	return population;
 }
