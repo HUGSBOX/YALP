@@ -20,6 +20,27 @@ This is the basic principle of the GNU General Public License (version 2.0)
 which is distributed with this program, and (of course) MUST be distributed
 along with any forked or otherwise modified version.
 
+SOURCE CODE STYLE GUIDE
+
+You'll find that the interface is very easy to understand and modify.
+Functions are named in a very easy-to-understand way, and each strive to do
+one job, and to do it well.  There is still room for more modulization,
+however.
+
+You'll also notice in specific cases there are naming conventions.  This is
+mostly applicable to the functions that initialize a generation 0 grid to a
+specific pattern.  Just for example, the function that turns the grid into a
+glider is called make_glider() - so naturally, the function that makes an r
+pentomino is called make_r_pentomino, and so on.
+
+Why create the struct Grid when I could have just made a two-dimensional int
+array inside of struct Life, you ask?  That is to make the code more
+extensible.  If you wanted, you could add more elements to the struct Grid
+that you want to keep local to it rather than the entire struct Life.  It also
+allows you to implement the struct Grid beyond its applications in relation to
+the struct Life.  That is also the reason why the make_pattern functions only
+accept (and return) struct Grid, not the entire struct Life.  
+
 USAGE
 
 Using YALP is simple.  
