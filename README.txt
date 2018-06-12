@@ -17,7 +17,8 @@ This program is free - like free speech, as well as like free beer.  The user
 is encouraged to change and distribute this program as they see fit, as long
 as those same rights are extended to anyone they distribute their changes to.
 This is the basic principle of the GNU General Public License (version 2.0)
-which is distributed with this program, and (of course) MUST be distributed 
+which is distributed with this program, and (of course) MUST be distributed
+along with any forked or otherwise modified version.
 
 USAGE
 
@@ -61,6 +62,19 @@ Rookie tip: you MUST keep the variable names the same when doing this, or else
 the program won't compile because it can't refer to the expected variable
 names.  They are cAsE sEnSiTiVe.
 
+Many of the existing pattern definitions now look different than what is
+described below - in practice they are the same, however they work by using 
+the HEIGHT and WIDTH global variables (defined in life.h) and dividing them 
+by 2, thus getting exactly in the middle of the grid.  Then the grid is filled 
+as such:
+
+	grid.cells[(HEIGHT/2)+1][WIDTH/2] = 1;
+
+That line would "turn on" the cell directly below the cell in the center of
+the grid.
+
+***THE BELOW NOTE NO LONGER APPLIES TO MOST BUILT-IN PATTERNS (as explained
+above)
 Additional note on grid size: if you're increasing (or decreasing) the grid size a substantial
 amount, you may want to (or it may be necessary to) change the definitions of
 any patterns you intend to use.  These are all defined in life.c, they look
@@ -99,6 +113,8 @@ the population at the time.
 
 C) Record the minimum and maximum populations of a pattern, along with
 their corresponding generations, and print them when the program is stopped.
+If you like, also keep track of average population (this would be
+generation-independant). 
 
 D) KEENER BONUS: Create a function (or set of functions) that allow grids to be
 written to, or read from .txt files for saving and loading.
